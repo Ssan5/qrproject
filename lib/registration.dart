@@ -12,7 +12,7 @@ class _RegistrationState extends State<Registration> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors. white,
+      backgroundColor: Colors.brown,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
