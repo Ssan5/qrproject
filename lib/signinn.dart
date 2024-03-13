@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qrproject/QR.dart';
 import 'package:qrproject/registration.dart';
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -11,7 +12,7 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.teal,
+      backgroundColor: Colors.brown,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -30,8 +31,8 @@ class _LoginState extends State<Login> {
               decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors. white38,
-                  border: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.white),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white),
                     borderRadius: BorderRadius.circular(50),
                   ),
                   hintText: 'Enter Your Email ID'),
@@ -44,8 +45,8 @@ class _LoginState extends State<Login> {
               decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors. white38,
-                  border: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.white),
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white),
                       borderRadius: BorderRadius.circular(50)),
                   hintText: 'Enter Your Password'),
             ),
@@ -55,7 +56,10 @@ class _LoginState extends State<Login> {
           ),
           ElevatedButton(
             onPressed: () {
-
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const  Qr()),
+              );
             },
             child: Text('Login',),
             style: ElevatedButton.styleFrom(  primary: Colors.white24,

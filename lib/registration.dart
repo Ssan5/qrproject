@@ -12,7 +12,7 @@ class _RegistrationState extends State<Registration> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.teal,
+      backgroundColor: Colors.brown,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -76,18 +76,20 @@ class _RegistrationState extends State<Registration> {
           SizedBox(
             height: 40,
           ),
-
-            TextButton(onPressed:(){
+          ElevatedButton(
+            onPressed: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => const  Login()),
               );
             },
-              child: Text("Register", style: TextStyle(
-                fontSize: 12,
-                color: Colors.white,
-                fontWeight: FontWeight.w800,
-              ),),)
+            child: Text('Register',),
+            style: ElevatedButton.styleFrom(  primary: Colors.white24,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+          ),
         ],
       ),
     );
