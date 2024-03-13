@@ -12,7 +12,7 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.brown,
+      backgroundColor: Colors.black45,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [

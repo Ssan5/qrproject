@@ -10,7 +10,7 @@ class _QrState extends State<Qr> {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.white60,
          body: Center(
            child: Column(mainAxisAlignment: MainAxisAlignment.center,
              children: [
@@ -21,7 +21,7 @@ class _QrState extends State<Qr> {
                  version: QrVersions.auto,
                  size: 200.0,
                ),
-               SizedBox(height: 40,),
+               SizedBox(height: 50,),
                ElevatedButton(
                  onPressed: () {
 
