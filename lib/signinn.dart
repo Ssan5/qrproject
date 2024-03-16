@@ -82,6 +82,7 @@ class _LoginState extends State<Login> {
                   fontWeight: FontWeight.w800,
                 ),
               ),
+
               TextButton(onPressed:(){
                 Navigator.push(
                   context,
@@ -91,7 +92,8 @@ class _LoginState extends State<Login> {
                   child: Text("Register", style: TextStyle(
                     fontSize: 12,
                     color: Colors.white,
-                    fontWeight: FontWeight.w800,
+                    backgroundColor: Colors.black45,
+                    fontWeight: FontWeight.w900,
                   ),),)
             ],
           ),

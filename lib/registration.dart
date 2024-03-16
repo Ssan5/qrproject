@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:qrproject/signinn.dart';
+import 'package:http/http.dart' as http;
 
 class Registration extends StatefulWidget {
   const Registration({Key? key}) : super(key: key);
@@ -9,6 +12,38 @@ class Registration extends StatefulWidget {
 }
 
 class _RegistrationState extends State<Registration> {
+  TextEditingController Name = TextEditingController();
+  TextEditingController RollNo = TextEditingController();
+  TextEditingController Email = TextEditingController();
+  TextEditingController Password = TextEditingController();
+  void reg() async {
+    Uri uri = Uri.parse("https://scnner-web.onrender.com/api/register");
+    var response = await http.post(uri,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode({
+          'name': Name.text,
+          'email': Email.text,
+          'roll no': RollNo.text,
+          'password': Password.text,
+        }));
+    print(response.statusCode);
+    print(response.body);
+    var data = jsonDecode(response.body);
+    print(data["message"]);
+
+    if (response.statusCode == 200) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const Login()),
+      );
+    } else {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(data["message"])));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,6 +62,7 @@ class _RegistrationState extends State<Registration> {
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: TextField(
+              controller: Name,
               decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white38,
@@ -40,6 +76,7 @@ class _RegistrationState extends State<Registration> {
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: TextField(
+              controller: RollNo,
               decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white38,
@@ -52,6 +89,7 @@ class _RegistrationState extends State<Registration> {
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: TextField(
+              controller: Email,
               decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white38,
@@ -64,6 +102,7 @@ class _RegistrationState extends State<Registration> {
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: TextField(
+              controller: Password,
               decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white38,
@@ -78,13 +117,17 @@ class _RegistrationState extends State<Registration> {
           ),
           ElevatedButton(
             onPressed: () {
+              reg();
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const  Login()),
+                MaterialPageRoute(builder: (context) => const Login()),
               );
             },
-            child: Text('Register',),
-            style: ElevatedButton.styleFrom(  primary: Colors.white24,
+            child: Text(
+              'Register',
+            ),
+            style: ElevatedButton.styleFrom(
+              primary: Colors.white24,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
