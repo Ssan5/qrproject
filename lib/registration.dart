@@ -25,7 +25,7 @@ class _RegistrationState extends State<Registration> {
         body: jsonEncode({
           'name': Name.text,
           'email': Email.text,
-          'roll no': RollNo.text,
+          'rollno': RollNo.text,
           'password': Password.text,
         }));
     print(response.statusCode);
@@ -38,6 +38,8 @@ class _RegistrationState extends State<Registration> {
         context,
         MaterialPageRoute(builder: (context) => const Login()),
       );
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(data["message"])));
     } else {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text(data["message"])));
@@ -118,10 +120,7 @@ class _RegistrationState extends State<Registration> {
           ElevatedButton(
             onPressed: () {
               reg();
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const Login()),
-              );
+
             },
             child: Text(
               'Register',

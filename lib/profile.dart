@@ -13,8 +13,9 @@ class _ProState extends State<Pro> {
     body: Center(
     child: Column(mainAxisAlignment: MainAxisAlignment.center,
     children: [
-    Image.network(" https://img.lovepik.com/free_png/32/43/98/71R58PIC5gdn8V58PICFG58PICpSc_PIC2018.png_860.png",height:270,width:270, ),
-    SizedBox(height: 50,),
+      Image.network("https://static.vecteezy.com/system/resources/previews/008/302/417/non_2x/eps10-brown-user-solid-icon-or-logo-in-simple-flat-trendy-modern-style-isolated-on-white-background-free-vector.jpg",height:270,width:270, ),
+
+      SizedBox(height: 50,),
       Text("Sania",style: TextStyle(
         fontSize: 40,color: Colors.brown,  fontWeight: FontWeight.w800,
       ),),

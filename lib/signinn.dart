@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:qrproject/QR.dart';
 import 'package:qrproject/registration.dart';
+import 'package:http/http.dart' as http;
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
 
@@ -9,6 +12,33 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  TextEditingController rollno = TextEditingController();
+  TextEditingController Password = TextEditingController();
+  Future<void> login()async {
+    Uri url =Uri.parse("https://scnner-web.onrender.com/api/login");
+    var response = await http.post(url,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode({
+          'rollno': rollno.text,
+          'password': Password.text,
+        }));
+var data =jsonDecode((response.body));
+    if (response.statusCode == 200) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const Qr()),
+      );
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(data["message"])));
+    } else {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(data["message"])));
+    }
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,6 +58,7 @@ class _LoginState extends State<Login> {
     Padding(
             padding: const EdgeInsets.all(20.0),
             child: TextField(
+              controller: rollno,
               decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors. white38,
@@ -35,13 +66,14 @@ class _LoginState extends State<Login> {
                     borderSide: BorderSide(color: Colors.white),
                     borderRadius: BorderRadius.circular(50),
                   ),
-                  hintText: 'Enter Your Email ID'),
+                  hintText: 'Enter Your  Roll NO'),
             ),
           ),
 
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: TextField(
+              controller:Password,
               decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors. white38,
@@ -56,10 +88,7 @@ class _LoginState extends State<Login> {
           ),
           ElevatedButton(
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const  Qr()),
-              );
+              login();
             },
             child: Text('Login',),
             style: ElevatedButton.styleFrom(  primary: Colors.white24,
@@ -68,40 +97,30 @@ class _LoginState extends State<Login> {
               ),
             ),
           ),
-          SizedBox(height: 50,),
-          Row(
-
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-
-              Text(' Dont have an account?  ',
-
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Colors.white,
-                  fontWeight: FontWeight.w800,
-                ),
+          SizedBox(height: 30,),
+          Text("Or",style: TextStyle(color: Colors.white, fontSize: 15,
+            fontWeight: FontWeight.w800,)),
+          SizedBox(height: 30,),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const  Registration()),
+              );
+            },
+            child: Text(' Dont have an account? Register',),
+            style: ElevatedButton.styleFrom(  primary: Colors.white24,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
               ),
-
-              TextButton(onPressed:(){
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const  Registration()),
-                );
-              },
-                  child: Text("Register", style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.white,
-                    backgroundColor: Colors.black45,
-                    fontWeight: FontWeight.w900,
-                  ),),)
-            ],
+            ),
           ),
 
 
-        ],
-      ),
-    );
+            ],
+          ),
+      );
+
   }
 }
 
